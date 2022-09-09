@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hs-mp4-to-mp3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mp4-to-mp3
+  template:
+    metadata:
+      name: hs-mp4-to-mp3
+      labels:
+        app: mp4-to-mp3      
+    spec:
+      containers:
+      - name: hs-mp4-to-mp3-deployment-container
+        ports:
+        - containerPort: 5000  
+        image: hyeonseong0917/hsc:latest
+        # image: python
+        volumeMounts:
+        - name: nfs-volume
+          mountPath: /mnt
+
+      volumes:
+      - name: nfs-volume
+        persistentVolumeClaim:
+          claimName: hyeonseong-nfs-pvc

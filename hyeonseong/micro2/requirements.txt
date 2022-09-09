@@ -1,0 +1,6 @@
+Flask
+redis
+kafka-python
+kubernetes
+moviepy
+pymongo

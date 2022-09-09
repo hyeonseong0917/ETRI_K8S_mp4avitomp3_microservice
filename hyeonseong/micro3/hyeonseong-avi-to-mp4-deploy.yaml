@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hs-avi-to-mp4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: avi-to-mp4
+  template:
+    metadata:
+      name: hs-avi-to-mp4
+      labels:
+        app: avi-to-mp4
+    spec:
+      containers:
+      - name: hs-conv-deployment-container
+        ports:
+        - containerPort: 5000  
+        image: hyeonseong0917/hsd:latest
+        # image: python
+        volumeMounts:
+        - name: nfs-volume
+          mountPath: /mnt
+          
+      volumes:
+      - name: nfs-volume
+        persistentVolumeClaim:
+          claimName: hyeonseong-nfs-pvc
